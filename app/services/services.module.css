@@ -9,12 +9,23 @@
 
 .textcontainer {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 420px;
   text-align: left;
   visibility: hidden;
+  gap:1rem;
+}
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.h1, .heroTitle {
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 
 .split-word {
@@ -152,6 +163,7 @@
   max-width: 1300px;
   margin: auto;
   flex-wrap: wrap;
+  padding: 2rem;
 }
 
 .heroContent {
@@ -177,6 +189,8 @@
   flex: 1;
   min-width: 300px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .heroImage img {

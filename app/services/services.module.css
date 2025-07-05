@@ -7,6 +7,20 @@
   gap: 100px;
 }
 
+.textcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+  visibility: hidden;
+}
+
+.split-word {
+  will-change: transform, opacity;
+}
+
 .serviceCard {
   display: flex;
   flex-wrap: wrap;

@@ -1,7 +1,11 @@
 // app/services/page.tsx
+"use client"
 
 import styles from './services.module.css'
 import Image from 'next/image'
+import { animate, stagger } from "motion"
+import { splitText } from "motion-plus"
+import { useEffect, useRef } from "react"
 
 import {
   FaCode,
@@ -23,21 +27,55 @@ import {
 } from 'react-icons/fa'
 
 export default function ServicesPage() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      el.style.visibility = "visible";
+
+      // Select both h1 and p elements
+      const elements = el.querySelectorAll<HTMLElement>("h1, p");
+      if (!elements.length) return;
+
+      elements.forEach((node) => {
+        const result = splitText(node);
+        if (!result?.words) return;
+
+        animate(
+          result.words,
+          { opacity: [0, 1], y: [10, 0] },
+          { type: "spring", duration: 2, bounce: 0, delay: stagger(0.05) }
+        );
+      });
+    });
+  }, []);
+
+
   return (
 
-    
+
     <div className={styles.container}>
-        <section className={styles.hero}>
-  <div className={styles.heroContent}>
-    <h1 className={styles.heroTitle}>Our Services</h1>
-    <p className={styles.heroSubtitle}>
-      We build digital experiences that deliver impact — from web to content and design.
-    </p>
-  </div>
-  <div className={styles.heroImage}>
-    <Image src="/images/services-hero.jpg" alt="Our Services" />
-  </div>
-</section>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <div className={styles.textcontainer} ref={containerRef}>
+            <h1 className={`${styles.heroTitle} h1`}>Our Services</h1>
+            <p className="p">
+              We build digital experiences that deliver impact — from web to content and design.
+            </p>
+          </div>
+
+        </div>
+        <div className={styles.heroImage}>
+          <Image src="/images/services-hero.jpg" alt="Our Services"
+            width={1200}      // <-- original image width
+            height={600}      // <-- original image height
+            style={{ width: '100%', height: 'auto' }} // for responsiveness
+          />
+        </div>
+      </section>
 
       {/* Web Development Section */}
       <section className={styles.serviceCard}>
@@ -71,10 +109,10 @@ export default function ServicesPage() {
           </ul>
         </div>
         <div className={styles.right}>
-  <div className={styles.rightSticky}>
-    <Image src="/images/web.jpg" alt="Web Development" className={styles.rightImg} />
-  </div>
-</div>
+          <div className={styles.rightSticky}>
+            <Image src="/images/web.jpg" alt="Web Development" className={styles.rightImg} width={500} height={350} />
+          </div>
+        </div>
       </section>
 
       {/* Content Marketing Section */}
@@ -109,10 +147,10 @@ export default function ServicesPage() {
           </ul>
         </div>
         <div className={styles.right}>
-  <div className={styles.rightSticky}>
-    <Image src="/images/content.jpg" alt="Content Marketing" className={styles.rightImg} />
-  </div>
-</div>
+          <div className={styles.rightSticky}>
+            <Image src="/images/content.jpg" alt="Content Marketing" className={styles.rightImg} width={500} height={350} />
+          </div>
+        </div>
       </section>
 
       {/* Graphic Designing Section */}
@@ -147,11 +185,30 @@ export default function ServicesPage() {
           </ul>
         </div>
         <div className={styles.right}>
-  <div className={styles.rightSticky}>
-    <Image src="/images/graphic.jpg" alt="Graphic Design" className={styles.rightImg} />
-  </div>
-</div>
+          <div className={styles.rightSticky}>
+            <Image src="/images/graphic.jpg" alt="Graphic Design" className={styles.rightImg} width={500} height={350} />
+          </div>
+        </div>
       </section>
     </div>
   )
 }
+// function Stylesheet() {
+//   return (
+//     <style>{`
+//             .textcontainer {
+//                 display: flex;
+//                 justify-content: center;
+//                 align-items: center;
+//                 width: 100%;
+//                 max-width: 420px;
+//                 text-align: left;
+//                 visibility: hidden;
+//             }
+
+//             .split-word {
+//                 will-change: transform, opacity;
+//             }
+//         `}</style>
+//   )
+// }
